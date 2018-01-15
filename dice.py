@@ -22,13 +22,12 @@ clock = pygame.time.Clock()
 
 dices = pygame.image.load(dice[0])
 
-randomdie = pygame.image.load(dice[random.randint(1,5)])
 
 def die(x,y):
     gameDisplay.blit(dices,(x,y))
 
 def randdie(x,y):
-    gameDisplay.blit(randomdie,(x,y))
+    gameDisplay.blit(pygame.image.load(dice[random.randint(1,5)]),(x,y))
 
 def roll():
     for x in range(5):
@@ -37,10 +36,12 @@ def roll():
 def reroll():
     for x in range(5):
         randdie(dx[x],dy[x])
-
+gameDisplay.fill(black)
 def game_loop():
     z = 0
+    c = 0
     yes = True
+    roll()
     while yes:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,13 +49,11 @@ def game_loop():
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 z+=1
-        gameDisplay.fill(black)
-        if z == 0:
-            roll()
-        if z > 0:
+                c = 0
+        if z > 0 and c == 0:
             reroll()
+            c+=1
         pygame.display.update()
-        print(z)
-        clock.tick(1)
+        clock.tick(60)
 
 game_loop()
