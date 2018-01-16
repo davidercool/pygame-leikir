@@ -48,8 +48,9 @@ def game_loop():
                 pygame.quit()
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                z+=1
-                c = 0
+                if pygame.mouse.get_pressed()[0]:
+                    z+=1
+                    c = 0
         if z > 0 and c == 0:
             reroll()
             c+=1
