@@ -4,13 +4,15 @@ import random
 
 pygame.init()
 
+whiter = (255, 255, 255)
+white = (155, 155, 155)
 black = (0, 0, 0)
 
 display_width = 800
 display_height = 600
 
 dice = ["Images/sd0.png","Images/sd1.png","Images/sd2.png","Images/sd3.png","Images/sd4.png","Images/sd5.png","Images/sd6.png"]
-dx = [display_width*0.32,display_width*0.58,display_width*0.2,display_width*0.45,display_width*0.7]
+dx = [display_width/2-150,display_width/2+150,display_width*0.2,display_width*0.45,display_width*0.7]
 dy = [display_height*0.3,display_height*0.3,display_height*0.6,display_height*0.6,display_height*0.6]
 listofdie = []
 
@@ -22,6 +24,25 @@ clock = pygame.time.Clock()
 
 dices = pygame.image.load(dice[0])
 
+def button(msg,x,y,w,h,i,a,action=None):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
+    if x + w > mouse[0] > x and y + h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, a, (x, y, w, h))
+        if click[0] == 1 and action != None:
+            action()
+    else:
+        pygame.draw.rect(gameDisplay, i, (x, y, w, h))
+
+    smallText = pygame.font.Font("freesansbold.ttf", 20)
+    textSurf, textRect = text_object(msg, smallText)
+    textRect.center = ((x + (w / 2), (y + (h / 2))))
+    gameDisplay.blit(textSurf, textRect)
+
+def text_object(text, font):
+    textSurf = font.render(text, True, black)
+    return textSurf, textSurf.get_rect()
 
 def die(x,y):
     gameDisplay.blit(dices,(x,y))
@@ -54,6 +75,7 @@ def game_loop():
         if z > 0 and c == 0:
             reroll()
             c+=1
+        button("Reroll", (display_width/2-50), 500, 100, 50, white, whiter, reroll)
         pygame.display.update()
         clock.tick(60)
 
