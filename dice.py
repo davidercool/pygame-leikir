@@ -7,13 +7,14 @@ pygame.init()
 whiter = (255, 255, 255)
 white = (155, 155, 155)
 black = (0, 0, 0)
+gray = (50,50,50)
 
 display_width = 800
 display_height = 600
 
 dice = ["Images/sd0.png","Images/sd1.png","Images/sd2.png","Images/sd3.png","Images/sd4.png","Images/sd5.png","Images/sd6.png"]
-dx = [display_width/2-150,display_width/2+150,display_width*0.2,display_width*0.45,display_width*0.7]
-dy = [display_height*0.3,display_height*0.3,display_height*0.6,display_height*0.6,display_height*0.6]
+dx = [display_width/2-150,display_width/2+50,display_width*0.2,display_width*0.45,display_width*0.7]
+dy = [display_height*0.2,display_height*0.2,display_height*0.5,display_height*0.5,display_height*0.5]
 listofdie = []
 
 gameDisplay = pygame.display.set_mode((display_width,display_height))
@@ -57,10 +58,10 @@ def roll():
 def reroll():
     for x in range(5):
         randdie(dx[x],dy[x])
+    print("YO")
 gameDisplay.fill(black)
 def game_loop():
     z = 0
-    c = 0
     yes = True
     roll()
     while yes:
@@ -71,12 +72,16 @@ def game_loop():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if pygame.mouse.get_pressed()[0]:
                     z+=1
-                    c = 0
-        if z > 0 and c == 0:
-            reroll()
-            c+=1
-        button("Reroll", (display_width/2-50), 500, 100, 50, white, whiter, reroll)
+
+            if z == 0:
+                button("Roll", 350, 450, 100, 100, gray, white, reroll)
+            elif z == 1:
+                button("Final Roll", 350, 450, 100, 100, gray, gray, reroll)
+                print("in")
+            else:
+                button("No more Rolls", 350, 450, 100, 100, black, black)
+        print(z)
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(144)
 
 game_loop()

@@ -44,8 +44,7 @@ def dodged(count):
     gameDisplay.blit(text,(0,0))
 
 def candy(candyx,candyy,candyw,candyh,color):
-    rect = pygame.Rect(200,200,100,100)
-    pygame.draw.rect(gameDisplay, color, rect)
+    pygame.draw.rect(gameDisplay, color, (candyx, candyy, candyw, candyh))
 
 def guy(x,y):
     gameDisplay.blit(man,(x,y))
