@@ -1,9 +1,7 @@
 import pygame
 import time
 import random
-
 pygame.init()
-
 whiter = (255, 255, 255)
 white = (155, 155, 155)
 black = (0, 0, 0)
@@ -76,11 +74,10 @@ def game_loop():
             if z == 0:
                 button("Roll", 350, 450, 100, 100, gray, white, reroll)
             elif z == 1:
-                button("Final Roll", 350, 450, 100, 100, gray, gray, reroll)
+                button("Final Roll", 350, 450, 100, 100, gray, white, reroll)
                 print("in")
             else:
                 button("No more Rolls", 350, 450, 100, 100, black, black)
-        print(z)
         pygame.display.update()
         clock.tick(144)
 

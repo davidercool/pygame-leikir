@@ -14,7 +14,7 @@ green = (0, 255, 0)
 dark_green = (0,150,0)
 blue = (0, 0, 255)
 
-gameDisplay = pygame.display.set_mode((800,600))
+gameDisplay = pygame.display.set_mode((display_width,display_height))
 
 pygame.display.set_caption('Cool Game')
 
@@ -105,14 +105,16 @@ def game_loop():
     candy_width = 100
     candy_height = 100
     candy_startx = random.randrange(0, display_width-candy_width)
+    print(display_width-candy_width)
     candy_starty = -400
     dodge = 0
 
     alive = True
 
     while alive:
+        print(candy_startx)
         for event in pygame.event.get():
-            print(event)
+            #print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -143,7 +145,6 @@ def game_loop():
         gameDisplay.fill(red)
 
         candy(candy_startx, candy_starty, candy_width, candy_height, blue)
-
         candy_starty += candy_speed
 
         guy(x,y)
