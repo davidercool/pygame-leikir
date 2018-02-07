@@ -23,6 +23,12 @@ pygame.display.set_caption('YATZEE')
 # necessary for ticks
 clock = pygame.time.Clock()
 
+dicex = [150, 250, 350, 450, 550]
+dicey = [300, 100, 300, 100, 300]
+dicew = 100
+diceh = 100
+
+teljari = 0
 # game loop
 def game_loop():
     # the loop where everything happens
@@ -35,17 +41,14 @@ def game_loop():
                 pygame.quit()
                 quit()
         gameDisplay.fill(black)
-        d1 = Button(pygame.Rect(150, 300, 100, 100), int, pygame.image.load("Images/sd0.png"))
-        d2 = Button(pygame.Rect(250, 100, 100, 100), int, pygame.image.load("Images/sd0.png"))
-        d3 = Button(pygame.Rect(350, 300, 100, 100), int, pygame.image.load("Images/sd0.png"))
-        d4 = Button(pygame.Rect(450, 100, 100, 100), int, pygame.image.load("Images/sd0.png"))
-        d5 = Button(pygame.Rect(550, 300, 100, 100), int, pygame.image.load("Images/sd0.png"))
+        for x in range(5): # generate dice
+            print(x)
+            d1 = Button(pygame.Rect(dicex[x], dicey[x], 500, 500), Button.lock, "Images/sd0.png", Button.lock)
+            d1.draw(gameDisplay)
+
+
         roll = Button(pygame.Rect(350, 450, 100, 100), int, gray)
-        d1.draw(gameDisplay)
-        d2.draw(gameDisplay)
-        d3.draw(gameDisplay)
-        d4.draw(gameDisplay)
-        d5.draw(gameDisplay)
+
         roll.draw(gameDisplay)
         if d1.click():
             pass
