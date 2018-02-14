@@ -41,9 +41,9 @@ def game_loop():
                 pygame.quit()
                 quit()
         gameDisplay.fill(black)
-        for x in range(5): # generate dice
-            print(x)
-            d1 = Button(pygame.Rect(dicex[x], dicey[x], 500, 500), Button.lock, "Images/sd0.png", Button.lock)
+
+        for x in range(5):
+            d1 = Button(pygame.Rect(dicex[x], dicey[x], 500, 500), Button.lock, str("./Images/sd0.png"))
             d1.draw(gameDisplay)
 
 
