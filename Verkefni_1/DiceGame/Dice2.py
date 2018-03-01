@@ -1,9 +1,11 @@
 import pygame
 import random
 
-from Verkefni_1.DiceGame.Button import *
-from Verkefni_1.DiceGame.rolldice import *
+try: from DiceGame.Button import *
+except ImportError: from Button import *
 pygame.init()
+
+rollBFont = pygame.font.SysFont('Arial', 80)
 
 # colors
 black = (0, 0, 0)
@@ -27,7 +29,12 @@ dicex = [150, 250, 350, 450, 550]
 dicey = [300, 100, 300, 100, 300]
 dicew = 100
 diceh = 100
-
+dices = [Button(pygame.Rect(dicex[0], dicey[0], 100, 100), Button.lock, str("./Images/sd0.png")),
+         Button(pygame.Rect(dicex[1], dicey[1], 100, 100), Button.lock, str("./Images/sd0.png")),
+         Button(pygame.Rect(dicex[2], dicey[2], 100, 100), Button.lock, str("./Images/sd0.png")),
+         Button(pygame.Rect(dicex[3], dicey[3], 100, 100), Button.lock, str("./Images/sd0.png")),
+         Button(pygame.Rect(dicex[4], dicey[4], 100, 100), Button.lock, str("./Images/sd0.png"))]
+rollbutton = Button(pygame.Rect((display_width-200)/2, 450, 200, 100), Button.reroll, hover=(200,200,200))
 teljari = 0
 # game loop
 def game_loop():
@@ -42,17 +49,12 @@ def game_loop():
                 quit()
         gameDisplay.fill(black)
 
-        for x in range(5):
-            d1 = Button(pygame.Rect(dicex[x], dicey[x], 500, 500), Button.lock, str("./Images/sd0.png"))
-            d1.draw(gameDisplay)
-
-
-        roll = Button(pygame.Rect(350, 450, 100, 100), int, gray)
-
-        roll.draw(gameDisplay)
-        if d1.click():
-            pass
-
+        for x in dices:
+            x.draw(gameDisplay)
+            x.clickEntered()
+        rollbutton.draw(gameDisplay)
+        gameDisplay.blit(rollBFont.render("Reroll", True, (0, 0, 255)), (rollbutton.x+15, rollbutton.y))
+        rollbutton.clickEntered()
 
         # updates display every tick
         pygame.display.update()
