@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 
 try: from DiceGame.Button import *
 except ImportError: from Button import *
@@ -34,11 +35,11 @@ dices = [Button(pygame.Rect(dicex[0], dicey[0], 100, 100), Button.lock, str("./I
          Button(pygame.Rect(dicex[2], dicey[2], 100, 100), Button.lock, str("./Images/sd0.png")),
          Button(pygame.Rect(dicex[3], dicey[3], 100, 100), Button.lock, str("./Images/sd0.png")),
          Button(pygame.Rect(dicex[4], dicey[4], 100, 100), Button.lock, str("./Images/sd0.png"))]
-rollbutton = Button(pygame.Rect((display_width-200)/2, 450, 200, 100), Button.reroll, hover=(200,200,200))
-teljari = 0
+rollbutton = Button(pygame.Rect((display_width-200)/2, 450, 200, 100), Button.reroll, hover=(200,200,200), dicelist=dices)
 # game loop
 def game_loop():
     # the loop where everything happens
+    counter = 0
     running = True
     while running:
         for event in pygame.event.get():
@@ -55,7 +56,10 @@ def game_loop():
         rollbutton.draw(gameDisplay)
         gameDisplay.blit(rollBFont.render("Reroll", True, (0, 0, 255)), (rollbutton.x+15, rollbutton.y))
         rollbutton.clickEntered()
-
+        rollbutton.hovering()
+        if counter > 2:
+            time.sleep(3)
+            pygame.quit()
         # updates display every tick
         pygame.display.update()
 

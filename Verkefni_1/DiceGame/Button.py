@@ -1,6 +1,7 @@
 import pygame
+import random
 class Button():
-    def __init__(self, rect, func, img=None, color=(255,255,255), hover=(255,255,255),locked=False):
+    def __init__(self, rect, func, img=None, color=(255,255,255,0.15), hover=(0,86,224),locked=False, dicelist=None):
         self.func = func
         self.img = pygame.image.load(img) if img is not None else None
         self.rect = rect
@@ -9,6 +10,10 @@ class Button():
         self.hover = hover
         self.locked = locked
         self.__prevClick = False
+        self.dicelist = dicelist
+        self.randimg = [pygame.image.load("./Images/sd1.png"),pygame.image.load("./Images/sd2.png"),pygame.image.load("./Images/sd3.png"),pygame.image.load("./Images/sd4.png"),pygame.image.load("./Images/sd5.png"),pygame.image.load("./Images/sd6.png")]
+        self.counter = 3
+        self.lookforclick = True
 
     @property
     def x(self):
@@ -40,18 +45,17 @@ class Button():
             dest.blit(self.img, self.rect)
 
     def clickEntered(self):
-        if pygame.mouse.get_pressed()[0] and self.hovering() and not self.__prevClick:
-            print("click entered")
-            self.func(self)
-            self.__prevClick = True
-            return True
-        elif not (pygame.mouse.get_pressed()[0] and self.hovering()):
-            self.__prevClick = False
-        return False
+        if self.lookforclick:
+            if pygame.mouse.get_pressed()[0] and self.hovering() and not self.__prevClick:
+                self.func(self)
+                self.__prevClick = True
+                return True
+            elif not (pygame.mouse.get_pressed()[0] and self.hovering()):
+                self.__prevClick = False
+            return False
 
     def click(self):
         if pygame.mouse.get_pressed()[0] and self.hovering():
-            print("clicked")
             self.func(self)
             return True
         return False
@@ -59,14 +63,19 @@ class Button():
     def lock(self):
         if self.locked:
             self.locked = False
-            print("unlocked")
         elif not self.locked:
-            print("locked")
             self.locked = True
 
+    def donothing(self):
+        pass
+
     def reroll(self):
-        for x in dices:
-            if x.locked:
-                print("noroll")
-            elif not x.locked:
-                print("reroll")
+        for x, elem in enumerate(self.dicelist):
+            if elem.locked:
+                pass
+            elif not elem.locked:
+                self.dicelist[x].img = self.randimg[random.randint(0, 5)]
+        self.counter -= 1
+        if self.counter == 0:
+            self.lookforclick = False
+
