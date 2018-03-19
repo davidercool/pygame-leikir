@@ -11,7 +11,7 @@ rollBFont = pygame.font.SysFont('Arial', 80)
 # colors
 black = (0, 0, 0)
 gray = (200,200,200)
-white = (200,200,200)
+white = (255,255,255)
 
 # display size
 display_width = 800
